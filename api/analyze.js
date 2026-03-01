@@ -1,4 +1,4 @@
-import axios from 'axios';
+// Uses native fetch (Node 18+ built-in) — no axios dependency needed
 
 const GEMINI_MODEL = 'gemini-2.5-flash';
 const GEMINI_API_URL = `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent`;
@@ -47,12 +47,16 @@ export default async function handler(req, res) {
 
     try {
         const fullPrompt = `${SAFETY_PROMPT}\n\nUSER TEXT: "${text}"\n\nANALYZE:`;
-        const geminiResp = await axios.post(
+        const geminiResp = await fetch(
             `${GEMINI_API_URL}?key=${process.env.GEMINI_API_KEY}`,
-            { contents: [{ role: 'user', parts: [{ text: fullPrompt }] }] },
-            { headers: { 'Content-Type': 'application/json' } }
+            {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ contents: [{ role: 'user', parts: [{ text: fullPrompt }] }] })
+            }
         );
-        const responseText = geminiResp.data.candidates[0].content.parts[0].text;
+        const geminiData = await geminiResp.json();
+        const responseText = geminiData.candidates[0].content.parts[0].text;
         const jsonBlock = responseText.replace(/```json/g, '').replace(/```/g, '').trim();
         const analysis = JSON.parse(jsonBlock);
 
