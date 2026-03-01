@@ -40,6 +40,7 @@ function App() {
   const [showWiki, setShowWiki] = useState(false);
   const [wikiQuery, setWikiQuery] = useState('');
   const [wikiResults, setWikiResults] = useState([]);
+  const [apiError, setApiError] = useState(null);
 
   // Fetch Daily Prompt on Load
   React.useEffect(() => {
@@ -88,7 +89,7 @@ function App() {
       setAnalysis(data);
     } catch (error) {
       console.error(error);
-      alert("Compass Offline. Please start the server.");
+      setApiError('Unable to reach the Compass API. Please try again in a moment.');
     } finally {
       // Only turn off loading if we didn't hit the hack (hack handles its own state)
       if (!normalizedText.includes("return of the dream") && !normalizedText.includes("in the back of your mind")) {

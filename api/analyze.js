@@ -46,12 +46,13 @@ export default async function handler(req, res) {
     }
 
     try {
-        const result = await model.generateContent([
-            SAFETY_PROMPT,
-            `USER TEXT: "${text}"\n\nANALYZE:`
-        ]);
-
-        const responseText = result.response.text();
+        const fullPrompt = `${SAFETY_PROMPT}\n\nUSER TEXT: "${text}"\n\nANALYZE:`;
+        const geminiResp = await axios.post(
+            `${GEMINI_API_URL}?key=${process.env.GEMINI_API_KEY}`,
+            { contents: [{ role: 'user', parts: [{ text: fullPrompt }] }] },
+            { headers: { 'Content-Type': 'application/json' } }
+        );
+        const responseText = geminiResp.data.candidates[0].content.parts[0].text;
         const jsonBlock = responseText.replace(/```json/g, '').replace(/```/g, '').trim();
         const analysis = JSON.parse(jsonBlock);
 
