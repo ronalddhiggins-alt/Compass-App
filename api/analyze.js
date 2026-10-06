@@ -1,6 +1,6 @@
 // Uses native fetch (Node 18+ built-in) — no axios dependency needed
 
-const GEMINI_MODEL = 'gemini-2.5-flash';
+const GEMINI_MODEL = 'gemini-2.0-flash';
 const GEMINI_API_URL = `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent`;
 
 const SAFETY_PROMPT = `
