@@ -13,7 +13,7 @@ const PORT = 3001;
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 // Using 2.5-flash as established by Narrative Auditor
 // Using 2.5-flash as established by Narrative Auditor
-const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
+const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash-lite" });
 
 // Load Workbook Prompts
 const WORKBOOK_PROMPTS = require('./prompts');
