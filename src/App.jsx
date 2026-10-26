@@ -126,6 +126,20 @@ function App() {
     <div className="min-h-screen flex flex-col items-center justify-center bg-gray-900 text-white p-4 font-sans relative overflow-hidden"
       style={{ background: 'linear-gradient(135deg, #111827 0%, #1f2937 100%)' }}>
 
+      {/* Return to The Partnership Hub */}
+      <div className="absolute top-6 left-6 z-20">
+        <a
+          href="https://partnership-hub.vercel.app"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex items-center gap-2 px-3.5 py-2 bg-white/5 hover:bg-white/10 rounded-full transition-all border border-white/10 text-xs font-semibold text-gray-200 hover:text-white"
+          title="Return to The Partnership Hub"
+        >
+          <span>🏠</span>
+          <span>Hub</span>
+        </a>
+      </div>
+
       {/* Field Guide Toggle Button */}
       <div className="absolute top-6 right-6 flex gap-3">
         <button
